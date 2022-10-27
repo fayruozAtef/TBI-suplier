@@ -32,6 +32,8 @@ class _AllBranchesScreenState extends State<AllBranchesScreen> {
               onChange: (value){
                 //search on the list with the entered value
                 print(value);
+                setState(() {
+                });
               },
               lable: "بحث",
               icon: Icons.search_outlined,
@@ -60,7 +62,7 @@ class _AllBranchesScreenState extends State<AllBranchesScreen> {
                                   )),
                             )),
                       ],
-                      rows: (!searchController.text.isEmpty)?state.allCustomers.map((e) => buildDataRow(e, state.allCustomers.indexOf(e), context)).toList():state.allCustomers.where((element) => element.customerName.contains(searchController.text)).map((e) => buildDataRow(e, state.allCustomers.indexOf(e), context)).toList(),
+                      rows:state.allCustomers.where((element) => element.customerName.contains(searchController.text)).map((e) => buildDataRow(e, state.allCustomers.indexOf(e), context)).toList(),
                     );
                   case RequestState.error:
                     return Padding(
