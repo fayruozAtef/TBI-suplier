@@ -17,6 +17,9 @@ class BranchesState extends Equatable {
   final RequestState addMainBranchState;
   final int addMainBranchSuccessResult;
   final RequestState addRegion;
+  final List<CustomerModel> allCustomers;
+  final RequestState getAllCustomersState;
+  final String getAllCustomersMessage;
 
   const BranchesState({
     this.rangesData=const [],
@@ -37,6 +40,9 @@ class BranchesState extends Equatable {
     this.addMainBranchState=RequestState.error,
     this.addMainBranchSuccessResult=0,
     this.addRegion=RequestState.loading,
+    this.allCustomers=const [],
+    this.getAllCustomersState=RequestState.loading,
+    this.getAllCustomersMessage='',
   });
 
   BranchesState copyWith({
@@ -55,6 +61,9 @@ class BranchesState extends Equatable {
     RequestState? addMainBranchState,
     int? addMainBranchSuccessResult,
     RequestState? addRegion,
+    List<CustomerModel>? allCustomers,
+    RequestState? getAllCustomersState,
+    String? getAllCustomersMessage,
   }) => BranchesState(
     rangesData: rangesData?? this.rangesData,
     getRangeState: getRangeState ?? this.getRangeState,
@@ -71,6 +80,9 @@ class BranchesState extends Equatable {
     addMainBranchState: addMainBranchState?? this.addMainBranchState,
     addMainBranchSuccessResult: addMainBranchSuccessResult ?? this.addMainBranchSuccessResult,
     addRegion: addRegion ?? this.addRegion,
+    allCustomers: allCustomers ?? this.allCustomers,
+    getAllCustomersMessage: getAllCustomersMessage ?? this.getAllCustomersMessage,
+    getAllCustomersState: getAllCustomersState ?? this.getAllCustomersState,
   );
 
   @override
@@ -90,5 +102,8 @@ class BranchesState extends Equatable {
         addBranchState,
         addMainBranchState,
         addRegion,
+        allCustomers,
+        getAllCustomersMessage,
+        getAllCustomersState,
       ];
 }

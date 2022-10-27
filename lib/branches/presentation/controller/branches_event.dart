@@ -60,3 +60,14 @@ class AddNewRegionEvent extends BranchesEvent{
   List<Object?> get props => throw UnimplementedError();
 
 }
+
+class GetAllCustomersEvent extends BranchesEvent{
+  final String userId;
+
+  const GetAllCustomersEvent(this.userId);
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [userId];
+
+}

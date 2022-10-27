@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 
 import '../../branches/data/data_source/remote_datasource.dart';
 import '../../branches/domain/usecase/add_region_usecase.dart';
+import '../../branches/domain/usecase/get_all_customers_usecase.dart';
 import '../../branches/domain/usecase/get_main_branches.dart';
 import '../../branches/domain/usecase/get_range_usecase.dart';
 import '../../branches/domain/usecase/get_region_usecase.dart';
@@ -13,13 +14,22 @@ final serviceLocator=GetIt.instance;
 class ServicesLocator{
   void init(){
     ///Bloc
-    serviceLocator.registerFactory(() =>BranchesBloc(serviceLocator(),serviceLocator(),serviceLocator(),serviceLocator(),serviceLocator()));
+    serviceLocator.registerFactory(() => BranchesBloc(
+          serviceLocator(),
+          serviceLocator(),
+          serviceLocator(),
+          serviceLocator(),
+          serviceLocator(),
+          serviceLocator(),
+        ));
+
     /// USE CASES
     serviceLocator.registerLazySingleton(() => GetRangeUseCase(serviceLocator()));
     serviceLocator.registerLazySingleton(() => GetRegionUseCase(serviceLocator()));
     serviceLocator.registerLazySingleton(() => GetMainBranchesUseCase(serviceLocator()));
     serviceLocator.registerLazySingleton(() => SetNewBranchUseCase(serviceLocator()));
     serviceLocator.registerLazySingleton(() => AddRegionUseCase(serviceLocator()));
+    serviceLocator.registerLazySingleton(() => GetAllCustomersUseCase(serviceLocator()));
 
     /// REPOSITORY
     serviceLocator.registerLazySingleton<BaseRepository>(() => BranchesRepository(serviceLocator()));

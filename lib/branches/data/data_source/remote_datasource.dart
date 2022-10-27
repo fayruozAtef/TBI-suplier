@@ -1,3 +1,4 @@
+import 'package:branches/branches/data/models/customer_model.dart';
 import 'package:branches/branches/data/models/main_branch_model.dart';
 import 'package:branches/branches/data/models/range_model.dart';
 import 'package:branches/branches/domain/usecase/add_region_usecase.dart';
@@ -17,6 +18,7 @@ abstract class BaseRemoteDataSource {
   Future<List<MainBranchModel>> getMainBranches(String parameters);
   Future<AddBranchDataModel> setNewSubBranchModel(SetNewBranchModel parameters);
   Future<AddBranchDataModel> setNewMainBranchModel(SetNewBranchModel parameters);
+  Future<List<CustomerModel>> getAllCustomers(String parameters);
 }
 class RemoteDataSource extends BaseRemoteDataSource{
 
@@ -117,6 +119,25 @@ class RemoteDataSource extends BaseRemoteDataSource{
       if(response.data['State']==1) {
         return List<RegionModel>.from((response.data['data'] as List)
             .map((e) => RegionModel.fromJson(e)));
+      }
+      else{
+        return [];
+      }
+    }else{
+      throw ServerException(
+          errorMessageModel: ErrorMessageModel.fromJson(response.data));
+    }
+  }
+
+  @override
+  Future<List<CustomerModel>> getAllCustomers(String parameters) async{
+    // TODO: implement addRegions
+    final response = await Dio().get(
+      ApiConstance.getAllCustomers(userId: parameters),
+    );
+    if(response.statusCode==200){
+      if(response.data['State']==1) {
+        return List<CustomerModel>.from((response.data['data'] as List).map((e) => CustomerModel.fromJson(e)));
       }
       else{
         return [];

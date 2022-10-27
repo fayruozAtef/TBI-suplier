@@ -12,5 +12,8 @@ class ApiConstance{
   static String getMainBranches({required String userId}) =>
       "$baseUrl/api/Customer/GetAllMainCus?userID=$userId";
 
+  static String getAllCustomers({required String userId}) =>
+      "$baseUrl/api/Sale/GetCusBySearch?UserID=$userId";
+
 
 }

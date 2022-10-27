@@ -7,7 +7,7 @@ import '../../../core/network/check_network_connection.dart';
 import '../../../core/services/services_locator.dart';
 import 'add_customer_screen.dart';
 import 'add_main_branch_screen.dart';
-import 'all_branches_screen.dart';
+import 'all_customer_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>  serviceLocator<BranchesBloc>()..add(GetRangeEvent())..add(GetMainBranchEvent()),
+      create: (context) =>  serviceLocator<BranchesBloc>()..add(GetRangeEvent())..add(GetMainBranchEvent())..add(GetAllCustomersEvent('2')),
       child: Scaffold(
       //resizeToAvoidBottomInset: false,
       appBar: AppBar(backgroundColor: Theme.of(context).primaryColor,elevation: 10.0,title:  Text(titles[_bottomNavIndex],style: const TextStyle(fontSize: 25.0,color: Colors.white,fontWeight: FontWeight.bold),),),

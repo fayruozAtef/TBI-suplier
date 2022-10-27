@@ -1,3 +1,4 @@
+import 'package:branches/branches/data/models/customer_model.dart';
 import 'package:branches/branches/data/models/get_added_branch_model.dart';
 import 'package:branches/branches/data/models/main_branch_model.dart';
 import 'package:branches/branches/data/models/range_model.dart';
@@ -15,4 +16,6 @@ abstract class BaseRepository{
   Future<Either<Failure,List<RegionModel>>> getRegions(GetRegionUSeCaseParameters parameters);
   Future<Either<Failure,List<RegionModel>>> addRegion(AddRegionParameters parameters);
   Future<Either<Failure,List<MainBranchModel>>> getMainBranches(String parameters);
+  Future<Either<Failure,List<CustomerModel>>> getAllCustomers(String userId);
+
 }

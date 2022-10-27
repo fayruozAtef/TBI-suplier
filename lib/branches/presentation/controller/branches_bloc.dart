@@ -9,8 +9,10 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../core/utils/enums.dart';
+import '../../data/models/customer_model.dart';
 import '../../data/models/set_new_branch_model.dart';
 import '../../domain/usecase/add_region_usecase.dart';
+import '../../domain/usecase/get_all_customers_usecase.dart';
 import '../../domain/usecase/get_main_branches.dart';
 import '../../domain/usecase/get_range_usecase.dart';
 import '../../domain/usecase/set_new_branch_usecase.dart';
@@ -18,13 +20,14 @@ part 'branches_event.dart';
 part 'branches_state.dart';
 
 class BranchesBloc extends Bloc<BranchesEvent, BranchesState> {
-  BranchesBloc(this.rangeUseCase,this.regionUseCase,this.mainBranchesUseCase,this.setNewBranchUseCase,this.addRegionUseCase) : super(const BranchesState()) {
+  BranchesBloc(this.rangeUseCase,this.regionUseCase,this.mainBranchesUseCase,this.setNewBranchUseCase,this.addRegionUseCase,this.getAllCustomersUseCase) : super(const BranchesState()) {
     on<GetRangeEvent>(_getRangesData);
     on<GetRegionEvent>(_getRegionData);
     on<GetMainBranchEvent>(_getMainBranches);
     on<SetNewSubBranchEvent>(_setNewSubBranch);
     on<SetNewMainBranchEvent>(_setNewMainBranch);
     on<AddNewRegionEvent>(_addRegion);
+    on<GetAllCustomersEvent>(_getAllCustomers);
   }
 
   final GetRangeUseCase rangeUseCase;
@@ -32,6 +35,7 @@ class BranchesBloc extends Bloc<BranchesEvent, BranchesState> {
   final GetMainBranchesUseCase mainBranchesUseCase;
   final SetNewBranchUseCase setNewBranchUseCase;
   final AddRegionUseCase addRegionUseCase;
+  final GetAllCustomersUseCase getAllCustomersUseCase;
 
   FutureOr<void> _getRangesData(GetRangeEvent event, Emitter<BranchesState> emit) async{
     final result = await rangeUseCase("2");
@@ -173,6 +177,24 @@ class BranchesBloc extends Bloc<BranchesEvent, BranchesState> {
             addRegion: RequestState.loaded,
             regionData: (r==[])? null:r,
             getRegionState: (r==[])?null:RequestState.loaded,
+          ));
+    });
+  }
+
+  FutureOr<void> _getAllCustomers(GetAllCustomersEvent event, Emitter<BranchesState> emit) async{
+
+    final result = await getAllCustomersUseCase(event.userId);
+    result.fold((l) {
+      emit(
+          state.copyWith(
+            getAllCustomersState: RequestState.error,
+            getAllCustomersMessage: l.message,
+          ));
+    }, (r) {
+      emit(
+          state.copyWith(
+            allCustomers: r,
+            getAllCustomersState: RequestState.loaded,
           ));
     });
   }
