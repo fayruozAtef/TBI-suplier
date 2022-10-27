@@ -198,4 +198,5 @@ class BranchesBloc extends Bloc<BranchesEvent, BranchesState> {
           ));
     });
   }
+
 }

@@ -6,6 +6,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../core/utils/enums.dart';
 import '../component/shared_component.dart';
 import '../controller/branches_bloc.dart';
+import 'customer_details_screen.dart';
 
 class AllBranchesScreen extends StatefulWidget {
   const AllBranchesScreen({Key? key}) : super(key: key);
@@ -32,8 +33,7 @@ class _AllBranchesScreenState extends State<AllBranchesScreen> {
               onChange: (value){
                 //search on the list with the entered value
                 print(value);
-                setState(() {
-                });
+                setState(() {});
               },
               lable: "بحث",
               icon: Icons.search_outlined,
@@ -48,6 +48,7 @@ class _AllBranchesScreenState extends State<AllBranchesScreen> {
                           size: 55,
                         ));
                   case RequestState.loaded:
+                    int i=0;
                     return DataTable(
                       columns: const [
                         DataColumn(
@@ -62,7 +63,7 @@ class _AllBranchesScreenState extends State<AllBranchesScreen> {
                                   )),
                             )),
                       ],
-                      rows:state.allCustomers.where((element) => element.customerName.contains(searchController.text)).map((e) => buildDataRow(e, state.allCustomers.indexOf(e), context)).toList(),
+                      rows:state.allCustomers.where((element) => element.customerName.contains(searchController.text)).map((e) => buildDataRow(e, i++, context)).toList(),
                     );
                   case RequestState.error:
                     return Padding(
@@ -91,7 +92,7 @@ class _AllBranchesScreenState extends State<AllBranchesScreen> {
         ]);
   }
 
-  void _navigateToDetails(BuildContext context,CustomerModel branch) {
-    //Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => BranchDetailsScreen(branch: branch,), ));
+  void _navigateToDetails(BuildContext context,CustomerModel customer) {
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CustomerDetailsScreen(customerId: customer.customerId.toString(), ), ));
   }
 }

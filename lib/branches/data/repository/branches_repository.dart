@@ -1,4 +1,5 @@
 import 'package:branches/branches/data/data_source/remote_datasource.dart';
+import 'package:branches/branches/data/models/customer_details_model.dart';
 import 'package:branches/branches/data/models/customer_model.dart';
 import 'package:branches/branches/data/models/get_added_branch_model.dart';
 import 'package:branches/branches/data/models/main_branch_model.dart';
@@ -6,6 +7,7 @@ import 'package:branches/branches/data/models/range_model.dart';
 import 'package:branches/branches/data/models/region_model.dart';
 import 'package:branches/branches/domain/repository/base_repository.dart';
 import 'package:branches/branches/domain/usecase/add_region_usecase.dart';
+import 'package:branches/branches/domain/usecase/get_customer_details_usecase.dart';
 import 'package:branches/branches/domain/usecase/get_region_usecase.dart';
 import 'package:branches/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
@@ -84,6 +86,17 @@ class BranchesRepository extends BaseRepository{
   Future<Either<Failure, List<CustomerModel>>> getAllCustomers(String userId) async{
     // TODO: implement getAllCustomers
     final result =await baseRemoteDataSource.getAllCustomers(userId);
+    try{
+      return Right(result);
+    }on ServerException catch(fail){
+      return Left(ServerFailure(message: fail.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, CustomerDetailsModel>> getCustomerDetails(GetCustomerDetailsParameters parameter) async{
+    // TODO: implement getCustomerDetails
+    final result =await baseRemoteDataSource.getCustomerDetails(parameter);
     try{
       return Right(result);
     }on ServerException catch(fail){

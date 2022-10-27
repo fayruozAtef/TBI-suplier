@@ -1,3 +1,4 @@
+import 'package:branches/branches/data/models/customer_details_model.dart';
 import 'package:branches/branches/data/models/customer_model.dart';
 import 'package:branches/branches/data/models/main_branch_model.dart';
 import 'package:branches/branches/data/models/range_model.dart';
@@ -6,6 +7,7 @@ import 'package:dio/dio.dart';
 import '../../../core/error/exception.dart';
 import '../../../core/network/api_constances.dart';
 import '../../../core/network/error_message_model.dart';
+import '../../domain/usecase/get_customer_details_usecase.dart';
 import '../../domain/usecase/get_region_usecase.dart';
 import '../models/get_added_branch_model.dart';
 import '../models/region_model.dart';
@@ -19,6 +21,7 @@ abstract class BaseRemoteDataSource {
   Future<AddBranchDataModel> setNewSubBranchModel(SetNewBranchModel parameters);
   Future<AddBranchDataModel> setNewMainBranchModel(SetNewBranchModel parameters);
   Future<List<CustomerModel>> getAllCustomers(String parameters);
+  Future<CustomerDetailsModel> getCustomerDetails(GetCustomerDetailsParameters parameters);
 }
 class RemoteDataSource extends BaseRemoteDataSource{
 
@@ -142,6 +145,20 @@ class RemoteDataSource extends BaseRemoteDataSource{
       else{
         return [];
       }
+    }else{
+      throw ServerException(
+          errorMessageModel: ErrorMessageModel.fromJson(response.data));
+    }
+  }
+
+  @override
+  Future<CustomerDetailsModel> getCustomerDetails(GetCustomerDetailsParameters parameters) async{
+    // TODO: implement getCustomerDetails
+    final response = await Dio().get(
+      ApiConstance.getCustomerDetails(userId: parameters.userId,customerId: parameters.customerId),
+    );
+    if(response.statusCode==200){
+      return CustomerDetailsModel.fromJson(response.data['Item']);
     }else{
       throw ServerException(
           errorMessageModel: ErrorMessageModel.fromJson(response.data));
