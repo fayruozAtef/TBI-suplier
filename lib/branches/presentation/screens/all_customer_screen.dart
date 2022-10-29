@@ -19,6 +19,7 @@ class _AllBranchesScreenState extends State<AllBranchesScreen> {
   var searchController =TextEditingController();
   @override
   Widget build(BuildContext context) {
+    context.read<BranchesBloc>().add(const GetAllCustomersEvent('2'));
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child:SingleChildScrollView(
@@ -40,6 +41,7 @@ class _AllBranchesScreenState extends State<AllBranchesScreen> {
             ),
             BlocBuilder<BranchesBloc, BranchesState>(
               builder: (context, state) {
+
                 switch(state.getAllCustomersState) {
                   case RequestState.loading:
                     return Center(

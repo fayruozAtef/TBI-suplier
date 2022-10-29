@@ -94,9 +94,6 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index){
           setState(()  {
-            if(_bottomNavIndex != index && index == 1) {
-              context.read<BranchesBloc>().add(GetAllCustomersEvent('2'));
-            }
             _bottomNavIndex = index;
           });
         },
@@ -112,11 +109,3 @@ class _HomeScreenState extends State<HomeScreen> {
     ),);
   }
 }
-/*AnimatedBottomNavigationBar(
-icons: [Icons.add_business_outlined, Icons.home_outlined,Icons.add_home_outlined,],
-activeIndex: _bottomNavIndex,
-gapLocation: GapLocation.center,
-notchSmoothness: NotchSmoothness.defaultEdge,
-onTap: (index) => setState(() => _bottomNavIndex = index),
-//other params
-),*/
