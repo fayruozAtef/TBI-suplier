@@ -182,6 +182,7 @@ class BranchesBloc extends Bloc<BranchesEvent, BranchesState> {
   }
 
   FutureOr<void> _getAllCustomers(GetAllCustomersEvent event, Emitter<BranchesState> emit) async{
+    emit(state.copyWith(getAllCustomersState: RequestState.loading));
 
     final result = await getAllCustomersUseCase(event.userId);
     result.fold((l) {

@@ -26,7 +26,7 @@ class SetNewBranchModel extends AddBranch{
     "UserID": "2",
     "Distributor_ID": "2",
     "Region_ID": regionId,
-    "AddressUrl": addressUrl.startsWith('https://'),
+    "AddressUrl": addressUrl.substring(addressUrl.indexOf('https://')),
     "Main_CusId": mainCustomerId
   };
 }
