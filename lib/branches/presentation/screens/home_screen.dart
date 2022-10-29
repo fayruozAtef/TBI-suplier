@@ -93,10 +93,10 @@ class _HomeScreenState extends State<HomeScreen> {
       body: widgets[_bottomNavIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index){
-          if(_bottomNavIndex != index && index == 1){
-            context.read<BranchesBloc>().add(GetAllCustomersEvent('2'));
-          }
           setState(()  {
+            if(_bottomNavIndex != index && index == 1) {
+              context.read<BranchesBloc>().add(GetAllCustomersEvent('2'));
+            }
             _bottomNavIndex = index;
           });
         },
