@@ -38,7 +38,10 @@ class _AddMainBranchScreenState extends State<AddMainBranchScreen> {
 
   var formKey2=GlobalKey<FormState>();
 
+  var formKey3=GlobalKey<FormState>();
+
   var newRegionName=TextEditingController();
+  var newRangeName=TextEditingController();
 
   RangeModel? _selectedRangeModel;
   RegionModel? _selectedRegionModel;
@@ -147,45 +150,106 @@ class _AddMainBranchScreenState extends State<AddMainBranchScreen> {
                               ),
                             );
                           case RequestState.loaded:
-                            return Container(
-                              height: 60.0,
-                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5.0),
-                                border: Border.all(color: Colors.grey),
-                              ),
-                              child: DropdownButton<RangeModel>(
-                                dropdownColor: Colors.grey[200],
-                                borderRadius: BorderRadius.circular(25.0),
-                                underline: const SizedBox(),
-                                onChanged: (value) {
-                                  _selectedRangeModel = value;
-                                  regionFlag=true;
-                                  setState(() {
-                                    //Get Region data according to the range id
-                                    _selectedRegionModel=null;
-                                    context.read<BranchesBloc>().add(GetRegionEvent(value!.rangeId));
-                                  });
-                                },
-                                value: _selectedRangeModel,
-                                icon: const Icon(Icons.keyboard_arrow_down),
-                                elevation: 10,
-                                isExpanded: true,
-                                hint: Row(
-                                  children: const [
-                                    Icon(Icons.location_pin, color: Colors.grey,),
-                                    SizedBox(width: 10.0,),
-                                    Text("أختر المنطقة", style: TextStyle(
-                                        fontSize: 18.0, color: Colors.black54),),
-                                  ],
+                            return Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    height: 60.0,
+                                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      border: Border.all(color: Colors.grey),
+                                    ),
+                                    child: DropdownButton<RangeModel>(
+                                      dropdownColor: Colors.grey[200],
+                                      borderRadius: BorderRadius.circular(25.0),
+                                      underline: const SizedBox(),
+                                      onChanged: (value) {
+                                        _selectedRangeModel = value;
+                                        regionFlag=true;
+                                        setState(() {
+                                          //Get Region data according to the range id
+                                          _selectedRegionModel=null;
+                                          context.read<BranchesBloc>().add(GetRegionEvent(value!.rangeId));
+                                        });
+                                      },
+                                      value: _selectedRangeModel,
+                                      icon: const Icon(Icons.keyboard_arrow_down),
+                                      elevation: 10,
+                                      isExpanded: true,
+                                      hint: Row(
+                                        children: const [
+                                          Icon(Icons.location_pin, color: Colors.grey,),
+                                          SizedBox(width: 10.0,),
+                                          Text("أختر المنطقة", style: TextStyle(
+                                              fontSize: 18.0, color: Colors.black54),),
+                                        ],
+                                      ),
+                                      items: state.rangesData.map((RangeModel model) {
+                                        return DropdownMenuItem<RangeModel>(
+                                          value: model,
+                                          child: Text(model.rangeName),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
                                 ),
-                                items: state.rangesData.map((RangeModel model) {
-                                  return DropdownMenuItem<RangeModel>(
-                                    value: model,
-                                    child: Text(model.rangeName),
-                                  );
-                                }).toList(),
-                              ),
+                                const SizedBox(width: 10.0,),
+                                MaterialButton(
+                                  onPressed: (){
+                                    showAlertMessage(
+                                      context: context,
+                                      title: 'أدخل أسم المنظقة',
+                                      content: Form(
+                                        key: formKey3,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              defaultTextFormField(
+                                                controler: newRangeName,
+                                                input: TextInputType.text,
+                                                validate: (value){
+                                                  if(value!.isEmpty){
+                                                    return 'برجاء إدخال أسم المنطقة';
+                                                  }
+                                                  return null;
+                                                },
+                                                lable: "أسم المنطقة",
+                                                icon: Icons.add,
+                                              ),
+                                              const SizedBox(height: 15.0,),
+                                              myMaterialButton(
+                                                label: 'حفظ',
+                                                onPressed: () {
+                                                  if(formKey3.currentState!.validate()){
+                                                    Navigator.pop(context);
+                                                    /*context.read<BranchesBloc>().add(AddNewRegionEvent(AddRegionParameters(
+                                                      userId: "2",
+                                                      rangeId: _selectedRangeModel!.rangeId.toString(),
+                                                      regionName: newRegionName.text,
+                                                    )));*/
+                                                    newRangeName.clear();
+                                                    setState(() {});
+                                                  }
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      action: [],
+                                    );
+                                  },
+                                  color: Colors.teal,
+                                  height:58.0,
+                                  shape:OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  child: const Icon(Icons.add,size: 25.0,color: Colors.white,),),
+                              ],
                             );
                           case RequestState.error:
                             return Container(

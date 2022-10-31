@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../core/utils/enums.dart';
 import '../controller/customer_details_bloc.dart';
@@ -12,7 +14,7 @@ class CustomerDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create:(context)=> serviceLocator<CustomerDetailsBloc>()..add(GetCustomerDetailsEvent(customerId: customerId, userId: "2")),
+      create:(context)=> serviceLocator<CustomerDetailsBloc>()..add(GetCustomerDetailsEvent(customerId: customerId, userId: "2")),
       child:Scaffold(
         appBar: AppBar(backgroundColor: Theme.of(context).primaryColor,elevation: 10.0,title:  const Text('بيانات العميل',style: TextStyle(fontSize: 25.0,color: Colors.white,fontWeight: FontWeight.bold),),),
         body: Padding(
@@ -23,7 +25,7 @@ class CustomerDetailsScreen extends StatelessWidget {
               print(state.customerData.toString());
               switch(state.getCustomerDetailsState) {
                 case RequestState.loading:
-                  // TODO: Handle this case.
+                // TODO: Handle this case.
                   return Center(
                     child: LoadingAnimationWidget.waveDots(
                       color: Colors.teal,
@@ -31,7 +33,7 @@ class CustomerDetailsScreen extends StatelessWidget {
                     ),
                   );
                 case RequestState.loaded:
-                  // TODO: Handle this case.
+                // TODO: Handle this case.
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -73,14 +75,51 @@ class CustomerDetailsScreen extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          const Text("العنوان : ",style: TextStyle(fontSize: 20.0,color: Colors.teal,fontWeight: FontWeight.w800),),
-                          Text(state.customerData.addressUrl,style: const TextStyle(fontSize: 19.0,color: Colors.black,fontWeight: FontWeight.w500),),
-                        ],
+                          // const Text("العنوان : ",style: TextStyle(fontSize: 20.0,color: Colors.teal,fontWeight: FontWeight.w800),),
+
+                          Padding(
+                            padding: const EdgeInsets.all(35.0),
+                            child: Container(
+
+                                height: 80,
+                                width: 300,
+                                alignment: Alignment.center,
+
+                                // Text(state.customerData.addressUrl,style: const TextStyle(fontSize: 19.0,color: Colors.black,fontWeight: FontWeight.w500),),
+                                child: TextButton(
+                                    style: TextButton.styleFrom(
+
+                                        foregroundColor: Colors.white,
+                                        elevation: 2,
+                                        backgroundColor: Colors.teal),
+                                    onPressed: () async {
+                                      //launch(state.customerData.addressUrl);
+                                      if(state.customerData.addressUrl.isEmpty){
+                                        Fluttertoast.showToast(
+                                            msg: "لا يوجد بيانات على الخريطة",
+                                            toastLength: Toast.LENGTH_LONG,
+                                            gravity: ToastGravity.CENTER,
+                                            timeInSecForIosWeb: 5,
+                                            backgroundColor: Colors.red,
+                                            textColor: Colors.white,
+                                            fontSize: 18.0);
+
+                                      }else{
+                                        launch(state.customerData.addressUrl);
+                                      }
+                                    },
+
+                                    child: Text(' العنوان على الخريطة ',style: TextStyle(fontSize: 20.0,color: Colors.white,fontWeight: FontWeight.w800),
+                                    )
+
+                                )
+                            ),
+                          )],
                       ),
                     ],
                   );
                 case RequestState.error:
-                  // TODO: Handle this case.
+                // TODO: Handle this case.
                   return Center(
                     child: Text(state.getCustomerDetailsMessage),
                   );

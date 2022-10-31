@@ -50,6 +50,11 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<key>com.apple.security.network.client</key>
     <true/>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>https</string>
+      <string>http</string>
+    </array>
     <array>
         <string>comgooglemaps</string>
         <string>baidumap</string>
