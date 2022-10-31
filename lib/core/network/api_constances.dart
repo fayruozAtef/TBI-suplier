@@ -3,6 +3,7 @@ class ApiConstance{
   static const String setNewSubBranch="$baseUrl/api/Customer/AddBranch";
   static const String setNewMainBranch="$baseUrl/api/Customer/AddMainCustomer";
   static const String addRegion="$baseUrl/api/Customer/AddRegion";
+  static const String addRange="$baseUrl/api/Customer/AddRange";
 
   static String getRange(String userId)=>"$baseUrl/api/Customer/GetRange?UserID=$userId";
 

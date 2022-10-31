@@ -6,6 +6,7 @@ import 'package:branches/branches/data/models/main_branch_model.dart';
 import 'package:branches/branches/data/models/range_model.dart';
 import 'package:branches/branches/data/models/region_model.dart';
 import 'package:branches/branches/domain/repository/base_repository.dart';
+import 'package:branches/branches/domain/usecase/add_range_usecase.dart';
 import 'package:branches/branches/domain/usecase/add_region_usecase.dart';
 import 'package:branches/branches/domain/usecase/get_customer_details_usecase.dart';
 import 'package:branches/branches/domain/usecase/get_region_usecase.dart';
@@ -97,6 +98,17 @@ class BranchesRepository extends BaseRepository{
   Future<Either<Failure, CustomerDetailsModel>> getCustomerDetails(GetCustomerDetailsParameters parameter) async{
     // TODO: implement getCustomerDetails
     final result =await baseRemoteDataSource.getCustomerDetails(parameter);
+    try{
+      return Right(result);
+    }on ServerException catch(fail){
+      return Left(ServerFailure(message: fail.errorMessageModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<RangeModel>>> addRange(AddRangeParameters parameters) async{
+    // TODO: implement addRange
+    final result =await baseRemoteDataSource.addRange(parameters);
     try{
       return Right(result);
     }on ServerException catch(fail){

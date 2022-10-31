@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:map_launcher/map_launcher.dart';
 import '../../data/models/main_branch_model.dart';
+import '../../domain/usecase/add_range_usecase.dart';
 import '../component/shared_component.dart';
 import '../controller/branches_bloc.dart';
 import 'package:geolocator/geolocator.dart';
@@ -295,11 +296,10 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
                                                 onPressed: () {
                                                   if(formKey3.currentState!.validate()){
                                                     Navigator.pop(context);
-                                                    /*context.read<BranchesBloc>().add(AddNewRegionEvent(AddRegionParameters(
+                                                    context.read<BranchesBloc>().add(AddNewRangeEvent(AddRangeParameters(
                                                       userId: "2",
-                                                      rangeId: _selectedRangeModel!.rangeId.toString(),
-                                                      regionName: newRegionName.text,
-                                                    )));*/
+                                                      rangeName: newRangeName.text,
+                                                    )));
                                                     newRangeName.clear();
                                                     setState(() {});
                                                   }

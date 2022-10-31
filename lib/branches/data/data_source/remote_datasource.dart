@@ -2,6 +2,7 @@ import 'package:branches/branches/data/models/customer_details_model.dart';
 import 'package:branches/branches/data/models/customer_model.dart';
 import 'package:branches/branches/data/models/main_branch_model.dart';
 import 'package:branches/branches/data/models/range_model.dart';
+import 'package:branches/branches/domain/usecase/add_range_usecase.dart';
 import 'package:branches/branches/domain/usecase/add_region_usecase.dart';
 import 'package:dio/dio.dart';
 import '../../../core/error/exception.dart';
@@ -15,6 +16,7 @@ import '../models/set_new_branch_model.dart';
 
 abstract class BaseRemoteDataSource {
   Future<List<RangeModel>> getRanges(String userId);
+  Future<List<RangeModel>> addRange(AddRangeParameters parameters);
   Future<List<RegionModel>> getRegions(GetRegionUSeCaseParameters parameters);
   Future<List<RegionModel>> addRegions(AddRegionParameters parameters);
   Future<List<MainBranchModel>> getMainBranches(String parameters);
@@ -159,6 +161,31 @@ class RemoteDataSource extends BaseRemoteDataSource{
     );
     if(response.statusCode==200){
       return CustomerDetailsModel.fromJson(response.data['Item']);
+    }else{
+      throw ServerException(
+          errorMessageModel: ErrorMessageModel.fromJson(response.data));
+    }
+  }
+
+  @override
+  Future<List<RangeModel>> addRange(AddRangeParameters parameters) async{
+    print("Print before insert --> "+parameters.toString());
+    // TODO: implement addRange
+    final response = await Dio().post(
+      ApiConstance.addRange,
+      data: {
+        "UserID": parameters.userId,
+        "Range": parameters.rangeName,
+      },
+    );
+    if(response.statusCode==200){
+      if(response.data['State']==1) {
+        return List<RangeModel>.from((response.data['data'] as List)
+            .map((e) => RangeModel.fromJson(e)));
+      }
+      else{
+        return [];
+      }
     }else{
       throw ServerException(
           errorMessageModel: ErrorMessageModel.fromJson(response.data));

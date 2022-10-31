@@ -10,6 +10,7 @@ import '../../../core/utils/enums.dart';
 import '../../data/models/range_model.dart';
 import '../../data/models/region_model.dart';
 import '../../data/models/set_new_branch_model.dart';
+import '../../domain/usecase/add_range_usecase.dart';
 import '../../domain/usecase/add_region_usecase.dart';
 import '../controller/branches_bloc.dart';
 
@@ -225,11 +226,10 @@ class _AddMainBranchScreenState extends State<AddMainBranchScreen> {
                                                 onPressed: () {
                                                   if(formKey3.currentState!.validate()){
                                                     Navigator.pop(context);
-                                                    /*context.read<BranchesBloc>().add(AddNewRegionEvent(AddRegionParameters(
+                                                    context.read<BranchesBloc>().add(AddNewRangeEvent(AddRangeParameters(
                                                       userId: "2",
-                                                      rangeId: _selectedRangeModel!.rangeId.toString(),
-                                                      regionName: newRegionName.text,
-                                                    )));*/
+                                                      rangeName: newRangeName.text,
+                                                    )));
                                                     newRangeName.clear();
                                                     setState(() {});
                                                   }

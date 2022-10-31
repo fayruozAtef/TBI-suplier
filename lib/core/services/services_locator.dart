@@ -3,6 +3,7 @@ import 'package:branches/branches/domain/repository/base_repository.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../branches/data/data_source/remote_datasource.dart';
+import '../../branches/domain/usecase/add_range_usecase.dart';
 import '../../branches/domain/usecase/add_region_usecase.dart';
 import '../../branches/domain/usecase/get_all_customers_usecase.dart';
 import '../../branches/domain/usecase/get_customer_details_usecase.dart';
@@ -23,6 +24,7 @@ class ServicesLocator{
           serviceLocator(),
           serviceLocator(),
           serviceLocator(),
+          serviceLocator(),
         ));
     serviceLocator.registerFactory(() => CustomerDetailsBloc(serviceLocator(),));
 
@@ -32,6 +34,7 @@ class ServicesLocator{
     serviceLocator.registerLazySingleton(() => GetMainBranchesUseCase(serviceLocator()));
     serviceLocator.registerLazySingleton(() => SetNewBranchUseCase(serviceLocator()));
     serviceLocator.registerLazySingleton(() => AddRegionUseCase(serviceLocator()));
+    serviceLocator.registerLazySingleton(() => AddRangeUseCase(serviceLocator()));
     serviceLocator.registerLazySingleton(() => GetAllCustomersUseCase(serviceLocator()));
     serviceLocator.registerLazySingleton(() => GetCustomerDetailsUseCase(serviceLocator()));
 

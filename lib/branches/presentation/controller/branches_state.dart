@@ -17,6 +17,7 @@ class BranchesState extends Equatable {
   final RequestState addMainBranchState;
   final int addMainBranchSuccessResult;
   final RequestState addRegion;
+  final RequestState addRange;
   final List<CustomerModel> allCustomers;
   final RequestState getAllCustomersState;
   final String getAllCustomersMessage;
@@ -40,6 +41,7 @@ class BranchesState extends Equatable {
     this.addMainBranchState=RequestState.error,
     this.addMainBranchSuccessResult=0,
     this.addRegion=RequestState.loading,
+    this.addRange=RequestState.loading,
     this.allCustomers=const [],
     this.getAllCustomersState=RequestState.loading,
     this.getAllCustomersMessage='',
@@ -61,6 +63,7 @@ class BranchesState extends Equatable {
     RequestState? addMainBranchState,
     int? addMainBranchSuccessResult,
     RequestState? addRegion,
+    RequestState? addRange,
     List<CustomerModel>? allCustomers,
     RequestState? getAllCustomersState,
     String? getAllCustomersMessage,
@@ -83,6 +86,7 @@ class BranchesState extends Equatable {
     allCustomers: allCustomers ?? this.allCustomers,
     getAllCustomersMessage: getAllCustomersMessage ?? this.getAllCustomersMessage,
     getAllCustomersState: getAllCustomersState ?? this.getAllCustomersState,
+    addRange: addRange ?? this.addRange,
   );
 
   @override
@@ -102,6 +106,7 @@ class BranchesState extends Equatable {
         addBranchState,
         addMainBranchState,
         addRegion,
+        addRange,
         allCustomers,
         getAllCustomersMessage,
         getAllCustomersState,
