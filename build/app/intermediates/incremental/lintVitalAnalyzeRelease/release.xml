@@ -4,9 +4,9 @@
     minSdkVersion="16"
     targetSdkVersion="31"
     shrinking="true"
-    mergedManifest="E:\TBI\branches\build\app\intermediates\merged_manifest\release\AndroidManifest.xml"
-    proguardFiles="E:\TBI\branches\build\app\intermediates\default_proguard_files\global\proguard-android.txt-7.1.2;C:\scr\flutter\packages\flutter_tools\gradle\flutter_proguard_rules.pro;proguard-rules.pro"
-    partialResultsDir="E:\TBI\branches\build\app\intermediates\lint_vital_partial_results\release\out">
+    mergedManifest="C:\Users\NoteBook\TBI-suplier\build\app\intermediates\merged_manifest\release\AndroidManifest.xml"
+    proguardFiles="C:\Users\NoteBook\TBI-suplier\build\app\intermediates\default_proguard_files\global\proguard-android.txt-7.1.2;C:\src\flutter\packages\flutter_tools\gradle\flutter_proguard_rules.pro;proguard-rules.pro"
+    partialResultsDir="C:\Users\NoteBook\TBI-suplier\build\app\intermediates\lint_vital_partial_results\release\out">
   <buildFeatures
       namespacing="REQUIRED"/>
   <sourceProviders>
@@ -29,9 +29,9 @@
         value="android.app.Application" />
   </manifestPlaceholders>
   <mainArtifact
-      classOutputs="E:\TBI\branches\build\app\intermediates\javac\release\classes;E:\TBI\branches\build\app\tmp\kotlin-classes\release;E:\TBI\branches\build\app\kotlinToolingMetadata;E:\TBI\branches\build\app\intermediates\compile_and_runtime_not_namespaced_r_class_jar\release\R.jar"
+      classOutputs="C:\Users\NoteBook\TBI-suplier\build\app\intermediates\javac\release\classes;C:\Users\NoteBook\TBI-suplier\build\app\tmp\kotlin-classes\release;C:\Users\NoteBook\TBI-suplier\build\app\kotlinToolingMetadata;C:\Users\NoteBook\TBI-suplier\build\app\intermediates\compile_and_runtime_not_namespaced_r_class_jar\release\R.jar"
       applicationId="com.example.branches"
-      generatedSourceFolders="E:\TBI\branches\build\app\generated\ap_generated_sources\release\out;E:\TBI\branches\build\app\generated\aidl_source_output_dir\release\out;E:\TBI\branches\build\app\generated\source\buildConfig\release;E:\TBI\branches\build\app\generated\renderscript_source_output_dir\release\out"
-      generatedResourceFolders="E:\TBI\branches\build\app\generated\res\rs\release;E:\TBI\branches\build\app\generated\res\resValues\release">
+      generatedSourceFolders="C:\Users\NoteBook\TBI-suplier\build\app\generated\ap_generated_sources\release\out;C:\Users\NoteBook\TBI-suplier\build\app\generated\aidl_source_output_dir\release\out;C:\Users\NoteBook\TBI-suplier\build\app\generated\source\buildConfig\release;C:\Users\NoteBook\TBI-suplier\build\app\generated\renderscript_source_output_dir\release\out"
+      generatedResourceFolders="C:\Users\NoteBook\TBI-suplier\build\app\generated\res\rs\release;C:\Users\NoteBook\TBI-suplier\build\app\generated\res\resValues\release">
   </mainArtifact>
 </variant>

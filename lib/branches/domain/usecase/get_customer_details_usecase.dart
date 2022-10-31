@@ -25,6 +25,7 @@ class GetCustomerDetailsParameters extends Equatable{
   final String customerId;
   final String userId;
 
+
   const GetCustomerDetailsParameters({
     required this.customerId,
     required this.userId,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../core/utils/enums.dart';
 import '../controller/customer_details_bloc.dart';
@@ -73,9 +75,63 @@ class CustomerDetailsScreen extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          const Text("العنوان : ",style: TextStyle(fontSize: 20.0,color: Colors.teal,fontWeight: FontWeight.w800),),
-                          Text(state.customerData.addressUrl,style: const TextStyle(fontSize: 19.0,color: Colors.black,fontWeight: FontWeight.w500),),
-                        ],
+                         // const Text("العنوان : ",style: TextStyle(fontSize: 20.0,color: Colors.teal,fontWeight: FontWeight.w800),),
+
+                        Padding(
+                          padding: const EdgeInsets.all(35.0),
+                          child: Container(
+
+                            height: 80,
+                            width: 300,
+                            alignment: Alignment.center,
+
+                           // Text(state.customerData.addressUrl,style: const TextStyle(fontSize: 19.0,color: Colors.black,fontWeight: FontWeight.w500),),
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+
+                                  foregroundColor: Colors.white,
+                                    elevation: 2,
+                                    backgroundColor: Colors.teal),
+                              onPressed: () async {
+                                    //launch(state.customerData.addressUrl);
+                                if(state.customerData.addressUrl.isEmpty){
+                                  Fluttertoast.showToast(
+                                      msg: "لا يوجد بيانات على الخريطة",
+                                      toastLength: Toast.LENGTH_LONG,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 5,
+                                      backgroundColor: Colors.red,
+                                      textColor: Colors.white,
+                                      fontSize: 18.0);
+
+                                }else{
+                                  launch(state.customerData.addressUrl);
+
+                                }
+                                    //if (await launch(state.customerData.addressUrl)) {
+                                    //  await launch(state.customerData.addressUrl);
+                                    //    }
+                                    //   else {
+                                    //      Fluttertoast.showToast(
+                                    //      msg: "لا يوجد بيانات على الخريطة",
+                                    //      toastLength: Toast.LENGTH_LONG,
+                                    //      gravity: ToastGravity.CENTER,
+                                    //      timeInSecForIosWeb: 5,
+                                    //      backgroundColor: Colors.red,
+                                    //      textColor: Colors.white,
+                                    //      fontSize: 18.0);
+                                    //
+                                    //        }
+
+
+                                         },
+
+                              child: Text(' العنوان على الخريطة ',style: TextStyle(fontSize: 20.0,color: Colors.white,fontWeight: FontWeight.w800),
+                            )
+
+                            )
+                          ),
+                        )],
                       ),
                     ],
                   );

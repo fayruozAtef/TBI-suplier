@@ -35,4 +35,5 @@ class CustomerDetailsBloc extends Bloc<CustomerDetailsEvent, CustomerDetailsStat
           ));
     });
   }
+  
 }
